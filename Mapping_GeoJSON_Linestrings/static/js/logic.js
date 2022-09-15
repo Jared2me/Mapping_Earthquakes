@@ -1,5 +1,5 @@
 // We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
@@ -14,7 +14,7 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 
 // Create a base layer that holds both maps.
 let baseMaps = {
-    light: light,
+    Light: light,
     Dark: dark
   };
 
@@ -28,8 +28,6 @@ let map = L.map("mapid", {
 // Accessing the Toronto airline routes GeoJSON URL.
 let torontoData = "https://raw.githubusercontent.com/jared2me/Mapping_Earthquakes/main/torontoRoutes.json";
 
-// Pass our map layers into our layers control and add the layers control to the map.
-L.control.layers(baseMaps).addTo(map);
 
 // Grabbing our GeoJSON data.
 d3.json(torontoData).then(function(data) {
@@ -37,7 +35,3 @@ d3.json(torontoData).then(function(data) {
 // Creating a GeoJSON layer with the retrieved data.
 L.geoJSON(data).addTo(map);
 });
-
-// Then we add our tile layer to the map.
-light.addTo(map);
-
